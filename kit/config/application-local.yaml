@@ -1,0 +1,24 @@
+# Default properties file for global environment
+router:
+  port: '8081'
+  name: 'timeline-service'
+
+log:
+  level: error
+  path: '/timeline-service.log'
+
+aws:
+  region: 'us-east-1'
+
+dynamo:
+  endpoint: 'http://localhost:4566'
+
+redis:
+  host: 'localhost'
+  port: 6379
+  db: 0
+  timeout: 5
+
+repositories:
+  tweets:
+    table: 'UalaChallenge'
