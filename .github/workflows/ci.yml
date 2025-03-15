@@ -40,11 +40,11 @@ jobs:
           version: v1.64.7
           args: >
             --timeout=5m
-            --tests=false  # Opcional: omitir pruebas en el análisis
+            --tests=false
             ./...
 
   test:
-    name: Run Unit Tests
+    name: Run Unit Tests with Coverage
     runs-on: ubuntu-latest
     needs: lint
     steps:
@@ -67,5 +67,44 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
 
-      - name: Run Tests
-        run: go test -v ./...
+      - name: Run Tests with Coverage
+        run: |
+          go test -coverprofile=coverage.out ./...
+          go tool cover -func=coverage.out
+
+      - name: Check Coverage File
+        run: |
+          if [ ! -f coverage.out ]; then
+            echo "Coverage report not found!"
+            exit 1
+          fi
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.out
+
+  sonarcloud:
+    name: SonarCloud Analysis (With Test Coverage)
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download Coverage Report
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
+
+      - name: Run SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          args: >
+            -Dsonar.organization=uala-challenge
+            -Dsonar.projectKey=uala-challenge_timeline-service
+            -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.go.coverage.reportPaths=coverage.out
+            -Dsonar.verbose=true
