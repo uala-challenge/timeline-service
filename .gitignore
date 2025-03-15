@@ -42,3 +42,6 @@ _cgo_export.*
 
 # Custom folders
 /coverage
+
+# Common sonar scanner work folder
+.scannerwork
