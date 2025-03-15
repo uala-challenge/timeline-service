@@ -3,6 +3,7 @@ package batch_get_tweets
 import (
 	"context"
 	"fmt"
+
 	"github.com/uala-challenge/timeline-service/internal/batch_get_tweets/mappers"
 
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
