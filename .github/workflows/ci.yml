@@ -21,7 +21,7 @@ jobs:
           check-latest: true
 
       - name: Clean Go Module Cache
-        run: rm -rf ~/.cache/go-build ~/go/pkg/mod
+        run: go clean -modcache
 
       - name: Cache Go modules
         uses: actions/cache@v4
@@ -30,6 +30,8 @@ jobs:
             ~/.cache/go-build
             ~/go/pkg/mod
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
 
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v6
@@ -55,7 +57,7 @@ jobs:
           check-latest: true
 
       - name: Clean Go Module Cache
-        run: rm -rf ~/.cache/go-build ~/go/pkg/mod
+        run: go clean -modcache
 
       - name: Cache Go modules
         uses: actions/cache@v4
@@ -64,6 +66,8 @@ jobs:
             ~/.cache/go-build
             ~/go/pkg/mod
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
 
       - name: Run Tests with Coverage
         run: |
