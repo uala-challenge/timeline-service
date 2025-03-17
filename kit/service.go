@@ -1,15 +1,17 @@
 package kit
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/mitchellh/mapstructure"
 )
 
 var validate = validator.New()
 
-func (t *TweetRequest) Validate() error {
+func (t *Request) Validate() error {
 	return prepareErrorResponse(validate.Struct(t))
 }
 
@@ -35,4 +37,24 @@ func maxResponse(e validator.FieldError) error {
 	default:
 		return fmt.Errorf("campo '%s' falló en la validación", e.Field())
 	}
+}
+
+func BytesToModel[O any](c []byte) (O, error) {
+	h := *new(O)
+	e := map[string]interface{}{}
+	err := json.Unmarshal(c, &e)
+	if err != nil {
+		return h, fmt.Errorf("error converting data to model - unmarshal: %w", err)
+	}
+	cfg := &mapstructure.DecoderConfig{
+		Metadata: nil,
+		Result:   &h,
+		TagName:  "json",
+	}
+	decoder, _ := mapstructure.NewDecoder(cfg)
+	err = decoder.Decode(e)
+	if err != nil {
+		return h, fmt.Errorf("error converting data to model - mapstructure: %w", err)
+	}
+	return h, nil
 }

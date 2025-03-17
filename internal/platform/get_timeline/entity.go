@@ -1,4 +1,4 @@
-package redis_timeline
+package get_timeline
 
 import (
 	"context"

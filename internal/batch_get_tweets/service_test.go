@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/mock"
 	db_mock "github.com/uala-challenge/simple-toolkit/pkg/platform/db/list_items/mock"
 	log_mock "github.com/uala-challenge/simple-toolkit/pkg/utilities/log/mock"
-	redis_mock "github.com/uala-challenge/timeline-service/internal/platform/redis_timeline/mock"
+	redis_mock "github.com/uala-challenge/timeline-service/internal/platform/get_timeline/mock"
 )
 
 func TestBatchGetTweets_EmptyTimeline(t *testing.T) {

@@ -34,12 +34,12 @@ jobs:
 
       - name: Build Binary
         run: |
-          go build -o simple-toolkit ./...
-          tar -czvf simple-toolkit_${{ github.ref_name }}.tar.gz simple-toolkit
+          go build -o timeline-service ./...
+          tar -czvf timeline-service_${{ github.ref_name }}.tar.gz timeline-service
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: simple-toolkit_${{ github.ref_name }}.tar.gz
+          files: timeline-service_${{ github.ref_name }}.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -9,9 +9,8 @@ type DynamoItem struct {
 	Created int64  `dynamodbav:"created"`
 }
 
-type TweetRequest struct {
-	UserID string `json:"user_id" validate:"required"`
-	Tweet  string `json:"tweet" validate:"required,max=280"`
+type Request struct {
+	FollowerID string `json:"follower_id" validate:"required"`
 }
 
 type Tweet struct {

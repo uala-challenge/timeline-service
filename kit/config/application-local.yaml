@@ -1,6 +1,6 @@
 # Default properties file for global environment
 router:
-  port: '8080'
+  port: '8085'
   name: 'timeline-service'
 
 log:
@@ -21,4 +21,6 @@ redis:
 
 cases:
   tweets:
+    table: 'UalaChallenge'
+  refresh:
     table: 'UalaChallenge'

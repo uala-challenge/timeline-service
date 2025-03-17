@@ -1,4 +1,4 @@
-package get_timeline
+package get_user_timeline
 
 import (
 	"net/http"

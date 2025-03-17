@@ -22,3 +22,5 @@ redis:
 cases:
   tweets:
     table: 'UalaChallenge'
+  refresh:
+    table: 'UalaChallenge'

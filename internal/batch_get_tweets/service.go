@@ -11,13 +11,13 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb/types"
 	"github.com/uala-challenge/simple-toolkit/pkg/platform/db/list_items"
 	"github.com/uala-challenge/simple-toolkit/pkg/utilities/log"
-	"github.com/uala-challenge/timeline-service/internal/platform/redis_timeline"
+	"github.com/uala-challenge/timeline-service/internal/platform/get_timeline"
 	"github.com/uala-challenge/timeline-service/kit"
 )
 
 type service struct {
 	db   list_items.Service
-	rd   redis_timeline.Service
+	rd   get_timeline.Service
 	log  log.Service
 	conf Config
 }

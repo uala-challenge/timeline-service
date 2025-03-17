@@ -1,17 +1,18 @@
-package get_timeline
+package get_user_timeline
 
 import (
 	"context"
 	"encoding/json"
 	"errors"
+	"net/http"
+	"net/http/httptest"
+	"testing"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	cm "github.com/uala-challenge/timeline-service/internal/batch_get_tweets/mock"
 	"github.com/uala-challenge/timeline-service/kit"
-	"net/http"
-	"net/http/httptest"
-	"testing"
 )
 
 func TestGetTimeline_Success(t *testing.T) {

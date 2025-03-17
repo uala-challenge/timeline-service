@@ -45,7 +45,7 @@ services:
     networks:
       - ualanet
     ports:
-      - "8086:8080"
+      - "8085:8080"
 
 networks:
   ualanet:
