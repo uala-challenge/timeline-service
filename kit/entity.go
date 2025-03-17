@@ -14,11 +14,6 @@ type TweetRequest struct {
 	Tweet  string `json:"tweet" validate:"required,max=280"`
 }
 
-type TweetPK struct {
-	UserID  string `json:"user_id"`
-	TweetID string `json:"tweet_id"`
-}
-
 type Tweet struct {
 	UserID  string `json:"user_id"`
 	TweetID string `json:"tweet_id"`
