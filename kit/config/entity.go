@@ -1,9 +1,9 @@
 package config
 
 import (
-	"github.com/uala-challenge/timeline-service/internal/platform/list_items"
+	"github.com/uala-challenge/timeline-service/internal/batch_get_tweets"
 )
 
-type RepositoryConfig struct {
-	Tweets list_items.Config `json:"tweets"`
+type UsesCasesConfig struct {
+	Tweets batch_get_tweets.Config `json:"tweets"`
 }

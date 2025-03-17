@@ -26,8 +26,14 @@ func (s service) Init(w http.ResponseWriter, r *http.Request) {
 	userID := chi.URLParam(r, "user_id")
 
 	tweet, err := s.useCase.Apply(r.Context(), userID)
+
 	if err != nil {
 		_ = error_handler.HandleApiErrorResponse(error_handler.NewCommonApiError("error to get tweet", err.Error(), err, http.StatusInternalServerError), w)
+		return
+	}
+
+	if len(tweet) == 0 {
+		_ = error_handler.HandleApiErrorResponse(error_handler.NewCommonApiError("tweet not found", "tweet not found", nil, http.StatusNotFound), w)
 		return
 	}
 

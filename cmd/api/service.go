@@ -1,21 +1,21 @@
 package main
 
 import (
+	"github.com/uala-challenge/simple-toolkit/pkg/platform/db/list_items"
 	"github.com/uala-challenge/simple-toolkit/pkg/simplify/app_builder"
 	"github.com/uala-challenge/simple-toolkit/pkg/simplify/app_engine"
 	"github.com/uala-challenge/timeline-service/cmd/api/get_timeline"
 	"github.com/uala-challenge/timeline-service/internal/batch_get_tweets"
-	"github.com/uala-challenge/timeline-service/internal/platform/list_items"
 	"github.com/uala-challenge/timeline-service/internal/platform/redis_timeline"
 	"github.com/uala-challenge/timeline-service/kit/config"
 )
 
 type engine struct {
-	simplify         app_engine.Engine
-	repositories     repositories
-	useCases         useCases
-	handlers         handlers
-	repositoryConfig config.RepositoryConfig
+	simplify       app_engine.Engine
+	repositories   repositories
+	useCases       useCases
+	handlers       handlers
+	useCasesConfig config.UsesCasesConfig
 }
 
 type AppBuilder struct {
@@ -38,14 +38,13 @@ func (a engine) Run() error {
 }
 
 func (a AppBuilder) LoadConfig() app_builder.Builder {
-	a.engine.repositoryConfig = app_engine.GetConfig[config.RepositoryConfig](a.engine.simplify.RepositoriesConfig)
+	a.engine.useCasesConfig = app_engine.GetConfig[config.UsesCasesConfig](a.engine.simplify.UsesCasesConfig)
 	return a
 }
 
 func (a AppBuilder) InitRepositories() app_builder.Builder {
 	a.engine.repositories.GetTweets = list_items.NewService(list_items.Dependencies{
 		Client: a.engine.simplify.DynamoDBClient,
-		Config: a.engine.repositoryConfig.Tweets,
 		Log:    a.engine.simplify.Log,
 	})
 	a.engine.repositories.GetTimeline = redis_timeline.NewService(redis_timeline.Dependencies{
@@ -60,6 +59,7 @@ func (a AppBuilder) InitUseCases() app_builder.Builder {
 		DBRepository:    a.engine.repositories.GetTweets,
 		RedisRepository: a.engine.repositories.GetTimeline,
 		Log:             a.engine.simplify.Log,
+		Config:          a.engine.useCasesConfig.Tweets,
 	})
 	return a
 }

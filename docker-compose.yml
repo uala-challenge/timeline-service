@@ -1,0 +1,58 @@
+services:
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=sns,sqs,dynamodb
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - GATEWAY_LISTEN=0.0.0.0:4566
+      - EAGER_SERVICE_LOADING=1
+    volumes:
+      - "localstack-data:/var/lib/localstack"
+      - "./scripts/init-localstack.sh:/etc/localstack/init/ready.d/init-localstack.sh"
+    networks:
+      - ualanet
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    command: [ "redis-server", "--appendonly", "yes" ]
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - ualanet
+
+  timeline-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: timeline-service:latest
+    container_name: timeline-service
+    depends_on:
+      localstack:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_REGION=us-east-1
+    networks:
+      - ualanet
+    ports:
+      - "8086:8080"
+
+networks:
+  ualanet:
+    driver: bridge
+
+volumes:
+  localstack-data:
+    driver: local
+  redis-data:
+    driver: local

@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/uala-challenge/simple-toolkit/pkg/platform/db/list_items"
 	"github.com/uala-challenge/timeline-service/cmd/api/get_timeline"
 	"github.com/uala-challenge/timeline-service/internal/batch_get_tweets"
-	"github.com/uala-challenge/timeline-service/internal/platform/list_items"
 	"github.com/uala-challenge/timeline-service/internal/platform/redis_timeline"
 )
 
