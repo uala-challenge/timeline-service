@@ -148,6 +148,7 @@ github.com/swaggo/swag v1.16.4 h1:clWJtd9LStiG3VeijiCfOVODP6VpHtKdQy9ELFG3s1A=
 github.com/swaggo/swag v1.16.4/go.mod h1:VBsHJRsDvfYvqoiMKnsdwhNV9LEMHgEDZcyVYX0sxPg=
 github.com/uala-challenge/simple-toolkit v0.0.22-test h1:KO4BlYFcZB7uaPNTaZQksB2LfnuV1g7gA7f0aEe1Vhg=
 github.com/uala-challenge/simple-toolkit v0.0.22-test/go.mod h1:kA8TDNbO2piCn31IcSIqJv1NsbB9MFts3G4NJHvEUP8=
+github.com/uala-challenge/simple-toolkit v1.0.1/go.mod h1:kA8TDNbO2piCn31IcSIqJv1NsbB9MFts3G4NJHvEUP8=
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
 go.elastic.co/ecslogrus v1.0.0 h1:o1qvcCNaq+eyH804AuK6OOiUupLIXVDfYjDtSLPwukM=
 go.elastic.co/ecslogrus v1.0.0/go.mod h1:vMdpljurPbwu+iFmNc/HSWCkn1Fu/dYde1o/adaEczo=
